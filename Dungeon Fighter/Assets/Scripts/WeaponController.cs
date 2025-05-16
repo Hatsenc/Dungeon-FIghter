@@ -33,6 +33,16 @@ public class WeaponController : MonoBehaviour
         StartCoroutine(ResetAttackCooldown());
     }
 
+    public int damageAmount = 25;
+    public void DealDamage(GameObject enemy)
+    {
+        EnemyController ec = enemy.GetComponent<EnemyController>();
+        if (ec != null)
+        {
+            ec.SetHealth(damageAmount);
+        }
+    }
+
     IEnumerator ResetAttackCooldown()
     {
         yield return new WaitForSeconds(AttackCooldown);

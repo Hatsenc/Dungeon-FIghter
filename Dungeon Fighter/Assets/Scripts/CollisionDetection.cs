@@ -10,8 +10,9 @@ public class CollisionDetection : MonoBehaviour
     {
         if (other.tag == "Enemy" && wc.IsAttacking)
         {
-            Debug.Log(other.name);
+            Debug.Log("Hit: " + other.name);
             other.GetComponent<Animator>().SetTrigger("Hit");
+            wc.DealDamage(other.gameObject);
 
         }
 

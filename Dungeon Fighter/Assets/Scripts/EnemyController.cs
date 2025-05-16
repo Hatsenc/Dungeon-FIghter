@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public AudioClip HitSound;
+    AudioSource ac;
 
     private int currentHealth;
     public int maxHealth = 100;
@@ -12,14 +13,29 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        ac = GetComponent<AudioSource>();
+        if (ac == null)
+        {
+            ac = gameObject.AddComponent<AudioSource>();
+        }
+
     }
 
     public void SetHealth(int damage)
     {
+        if (damage > 0)
+        {
+            if (HitSound != null && ac != null)
+            {
+                ac.PlayOneShot(HitSound);
+            }
+        }
+        
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        if (currentHealth <= 0) Die();
+        if (currentHealth <= 0)
+            Die();
 
     }
 
@@ -31,7 +47,6 @@ public class EnemyController : MonoBehaviour
     public virtual void Die()
     {
         Destroy(transform.gameObject);
-        transform.gameObject.SetActive(false);
     }
 }
 
