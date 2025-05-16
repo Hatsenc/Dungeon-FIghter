@@ -7,7 +7,8 @@ public class PlayerMovement : MonoBehaviour
 
     public CharacterController controller;
 
-    public float speed = 12f;
+    public float speed = 6f;
+    private bool sprinting = false;
 
     // Update is called once per frame
     void Update()
@@ -19,5 +20,15 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(move * speed * Time.deltaTime);
 
+        if (Input.GetKeyDown(KeyCode.LeftShift) && sprinting == false)
+        {
+            sprinting = true;
+            speed *= 2;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift) && sprinting == true)
+        {
+            sprinting = false;
+            speed /= 2;
+        }
     }
 }

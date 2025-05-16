@@ -14,6 +14,6 @@ public class CollisionDetection : MonoBehaviour
             other.GetComponent<Animator>().SetTrigger("Hit");
 
         }
-        
+
     }
 }
